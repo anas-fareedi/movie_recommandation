@@ -6,12 +6,3 @@ joblib
 requests
 streamlit
 python-multipart
-
-fastapi
-uvicorn
-pandas
-scikit-learn
-joblib
-requests
-streamlit
-python-multipart
