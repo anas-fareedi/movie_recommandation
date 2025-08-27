@@ -1,32 +1,3 @@
-# from fastapi import FastAPI
-# import joblib
-# import pandas as pd
-
-# app = FastAPI()
-
-# cosine_sim = joblib.load("cosine_sim.pkl")
-# indices = joblib.load("indices.pkl")
-# df = pd.read_csv("movies_imdb.csv")
-
-# @app.get("/")
-# def home():
-#     return {"message": "Movie Recommendation API is running"}
-
-# @app.get("/recommend/")
-# def recommend_api(movie_title: str):
-#     if movie_title not in indices:
-#         return {"error": "Movie not found in dataset"}
-    
-#     idx = indices[movie_title]
-#     sim_scores = list(enumerate(cosine_sim[idx]))
-#     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:6]
-#     movie_indices = [i[0] for i in sim_scores]
-#     recommendations = df["Series_Title"].iloc[movie_indices].tolist()
-    
-#     return {"input": movie_title, "recommendations": recommendations}\
-
-# ABOVE IS NON TOUCHABLE CODE (its for the non trained model like : cosine_sim , Indices.pkl )
-
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 from typing import Optional, List, Dict
@@ -74,26 +45,6 @@ def root():
     return {"msg": "Movie Recommender API. Visit /docs for interactive API."}
 
 
-# @app.post("/predict")
-# def predict(req: PredictRequest):
-#     if clf is None or tfidf is None:
-#         raise HTTPException(500, "Model or vectorizer not loaded")
-
-#     combined = " ".join(filter(None, [req.title, req.genre])).strip()
-#     if not combined:
-#         raise HTTPException(400, "Send at least one of title/genre")
-
-#     movies_df["High_Prob"] = clf.predict_proba(tfidf_matrix)[:, 1]
-#     top_movies = movies_df.sort_values("High_Prob", ascending=False).head(10)
-
-#     results = top_movies[["Series_Title", "Genre", "IMDB_Rating", "High_Prob"]] \
-#         .to_dict(orient="records")
-
-#     return {
-#         "input": {"title": req.title, "genre": req.genre},
-#         "Top_Recommended_Movies": results
-#     }
-
 @app.get("/predict")
 def predict():
     global clf, tfidf, movies_df
@@ -101,10 +52,8 @@ def predict():
     if clf is None or movies_df is None or tfidf is None:
         raise HTTPException(500, "Model, vectorizer, or data not loaded")
 
-    # Transform combined_features using tfidf
     X = tfidf.transform(movies_df["combined_features"].astype(str))
 
-    # Predict probabilities
     if hasattr(clf, "predict_proba"):
         movies_df["High_Prob"] = clf.predict_proba(X)[:, 1]
 
@@ -112,7 +61,6 @@ def predict():
     results = top_movies[["Series_Title", "Genre", "IMDB_Rating", "High_Prob"]].to_dict(orient="records")
 
     return {"Top_Recommended_Movies": results}
-
 
 
 @app.get("/similar")

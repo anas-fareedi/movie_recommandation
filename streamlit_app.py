@@ -1,4 +1,3 @@
-# streamlit_app.py
 import streamlit as st
 import requests
 import pandas as pd
@@ -6,14 +5,8 @@ import pandas as pd
 st.set_page_config(page_title="Movie Recommender", layout="wide")
 st.title("🎬 Movie Recommendation System")
 
-# ----------------------
-# Tabs for UI
-# ----------------------
 tab1, tab2 = st.tabs(["Top 10 Recommended Movies", "Find Similar Movies"])
 
-# ----------------------
-# Tab 1: Top 10 Recommended
-# ----------------------
 with tab1:
     st.write("These are the top 10 recommended movies overall:")
 
@@ -31,9 +24,7 @@ with tab1:
     except requests.exceptions.RequestException as e:
         st.error(f"Error calling API: {e}")
 
-# ----------------------
-# Tab 2: Similar Movies
-# ----------------------
+
 with tab2:
     st.subheader("Find movies similar to a given title")
     movie_title = st.text_input("Enter movie title:")
