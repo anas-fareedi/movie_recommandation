@@ -18,7 +18,7 @@ with tab1:
     st.write("These are the top 10 recommended movies overall:")
 
     try:
-        response = requests.get("http://127.0.0.1:8000/predict", timeout=10)
+        response = requests.get(" https://movie-recommandation-vypd.onrender.com/predict", timeout=10)
         response.raise_for_status()
         data = response.json()
 
@@ -44,7 +44,7 @@ with tab2:
         else:
             try:
                 response = requests.get(
-                    "http://127.0.0.1:8000/similar",
+                    " https://movie-recommandation-vypd.onrender.com/similar",
                     params={"title": movie_title, "top_k": 10},
                     timeout=10
                 )
