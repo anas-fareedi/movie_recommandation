@@ -15,6 +15,9 @@ Cosine Similarity: Employs cosine similarity to determine the likeness between m
 REST API: A high-performance API built with FastAPI to serve movie recommendations efficiently.​
 
 Interactive API Docs: Automatically generated, interactive API documentation available through Swagger UI and ReDoc.
+<img width="1782" height="775" alt="image" src="https://github.com/user-attachments/assets/c0900525-6ca7-46e1-b2ba-df136c080e07" />
+
+<img width="1799" height="774" alt="image" src="https://github.com/user-attachments/assets/2c90c9da-024e-4a44-9be0-ad8f8bc8c63a" />
 
 ## Tech Stack
 
